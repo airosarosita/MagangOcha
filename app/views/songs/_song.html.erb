@@ -1,0 +1,39 @@
+<div id="<%= dom_id song %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= song.title %>
+  </p>
+
+  <p class="my-5">
+  <strong class="block font-medium mb-1">Artist:</strong>
+  <% song.artists.each do|artist| %>
+    <%= artist.name %>
+    <% end %>
+</p>
+
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Release:</strong>
+    <%= song.release %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Composer:</strong>
+    <%= song.composer %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Producer:</strong>
+    <%= song.producer %>
+  </p>
+
+  <% if @song.file.attached? %>
+  <audio controls>
+  <source src="<%= url_for(@song.file) %>" type="audio/mpeg">
+  your browser does mot support the audio element.
+  </audio>
+  <% else %>
+  <p> no file attached</p>
+  <% end %>
+
+</div>

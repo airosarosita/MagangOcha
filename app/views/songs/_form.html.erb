@@ -1,0 +1,49 @@
+<%= form_with(model: song, class: "contents") do |form| %>
+  <% if song.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(song.errors.count, "error") %> prohibited this song from being saved:</h2>
+
+      <ul>
+        <% song.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="field">
+  <%= form.label :artist %>
+  <%= form.collection_select :artist_ids, Artist.order(:name), :id, :name, {},
+  multiple: true, prompt: "Select the Category", class: "",
+  data: { controllerr: 'multi-select',
+  target: 'multi-select.select',
+  behavior: 'select' } %>
+
+  <div class="my-5">
+    <%= form.label :composer %>
+    <%= form.text_field :composer, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :release %>
+    <%= form.text_field :release, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :producer %>
+    <%= form.text_field :producer, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+  <div>
+  <%= form.label :file %><br>
+  <%= form.file_field :file %>
+  </div>
+<% end %>
