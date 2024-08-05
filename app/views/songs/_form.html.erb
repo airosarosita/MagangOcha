@@ -17,12 +17,13 @@
   </div>
 
   <div class="field">
-  <%= form.label :artist %>
-  <%= form.collection_select :artist_ids, Artist.order(:name), :id, :name, {},
-  multiple: true, prompt: "Select the Category", class: "",
-  data: { controllerr: 'multi-select',
-  target: 'multi-select.select',
-  behavior: 'select' } %>
+    <%= form.label :artist %>
+    <%= form.collection_select :artist_ids, Artist.order(:name), :id, :name, {},
+    multiple: true, prompt: "Select the Category", class: "",
+    data: { controller: 'multi-select',
+    target: 'multi-select.select',
+    behavior: 'select' } %>
+  </div>
 
   <div class="my-5">
     <%= form.label :composer %>
@@ -31,7 +32,7 @@
 
   <div class="my-5">
     <%= form.label :release %>
-    <%= form.text_field :release, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.date_field :release, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -39,11 +40,17 @@
     <%= form.text_field :producer, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="my-5">
+    <%= form.label :file %><br>
+    <%= form.file_field :file %>
   </div>
-  <div>
-  <%= form.label :file %><br>
-  <%= form.file_field :file %>
+
+  <div class="my-5">
+    <%= form.label :image %><br>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit "Update Song", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

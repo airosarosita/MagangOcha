@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
   <div class="field">
   <%= form.label :song %>
   <%= form.collection_select :song_ids, Song.where.not(id: AlbumSong.select(:song_id)), :id, :title, {},

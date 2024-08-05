@@ -3,6 +3,7 @@ class Song < ApplicationRecord
     friendly_id :title, use: :slugged
 
     has_one_attached :file
+    has_one_attached :image
 
     has_many :artist_songs, dependent: :destroy
     has_many :artists, through: :artist_songs

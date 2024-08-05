@@ -1,38 +1,27 @@
-<div class="w-full">
+<div class="w-full p-6 bg-blue-50 min-h-screen">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-blue-100 mb-5 text-blue-600 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
   <% content_for :title, "Albums" %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Albums</h1>
-    <%= link_to "New album", new_album_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl text-blue-600">Albums</h1>
+    <%= link_to "New Album", new_album_path, class: "rounded-lg py-3 px-6 bg-blue-600 text-white font-medium shadow-lg hover:bg-blue-700 transition duration-300" %>
   </div>
-  
-  <table class="min-w-full bg-white">
-  <thead>
-    <tr>
-      <th class="py-2 px-8 bg-gray-200 text-left">Title</th>
-      <th class="py-2 px-8 bg-gray-200 text-left">About</th>
-      <th class="py-3 px-8 bg-gray-200 text-left">Song</th>
-      <th class="py-2 px-8 bg-gray-200 text-left">Release</th>
-      <th class="py-2 px-8 bg-gray-200 text-left">Credit</th>
-    </tr>
-  </thead>
 
-  <div id="albums" class="min-w-full">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <% @albums.each do |album| %>
-        <tr class="cursor-pointer hover:bg-gray-100" onclick="window.location='<%= album_path(album) %>'">
-          <td class="border-t py-3 px-1"><%= album.title %></td>
-          <td class="border-t py-3 px-1"><%= album.about %></td>
-          <td class="border-t py-3 px-1"><% album.songs.each do |song| %>
-      <%= song.title %>
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer border border-gray-200" onclick="window.location='<%= album_path(album) %>'">
+        <h2 class="text-2xl font-semibold mb-2 text-gray-800"><%= album.title %></h2>
+        <p class="text-gray-600 mb-1"><strong>Song(s):</strong> 
+          <% album.songs.each do |song| %>
+            <%= song.title %><% unless song == album.songs.last %>, <% end %>
+          <% end %>
+        </p>
+        <p class="text-gray-600 mb-1"><strong>Release:</strong> <%= album.release %></p>
+        <p class="text-gray-600"><strong>Credit:</strong> <%= album.credit %></p>
+      </div>
     <% end %>
-          <td class="border-t py-3 px-1"><%= album.release %></td>
-          <td class="border-t py-3 px-1"><%= album.credit %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  </div>
 </div>
