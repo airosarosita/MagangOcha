@@ -1,0 +1,23 @@
+<div class="w-full p-6 bg-blue-100 min-h-screen">
+  <% if notice.present? %>
+    <p class="py-3 px-4 bg-blue-50 mb-5 text-blue-600 font-medium rounded-lg inline-block" id="notice">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <% content_for :title, "Songs" %>
+
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl text-blue-600">Songs</h1>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @songs.each do |song| %>
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer" onclick="window.location='<%= client_song_path(song) %>'">
+        <h2 class="text-2xl font-semibold mb-2 text-gray-800"><%= song.title %></h2>
+        <p class="text-gray-600 mb-1"><strong>Artist:</strong> <% song.artists.each do |artist| %><%= artist.name %><% unless artist == song.artists.last %>, <% end %><% end %></p>
+        <p class="text-gray-600"><strong>Release:</strong> <%= song.release %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div id="<%= dom_id song %>" class="bg-blue-600 text-white p-6 rounded-lg shadow-lg max-w-lg mx-auto mb-6">
+  <div class="flex items-center mb-5">
+    <% if song.image.attached? %>
+      <%= image_tag url_for(song.image), class: "w-16 h-16 rounded-lg mr-4 shadow-md" %>
+    <% else %>
+      <div class="w-16 h-16 rounded-lg bg-blue-600 flex items-center justify-center text-blue-300">
+        <i class="fas fa-music text-2xl"></i>
+      </div>
+    <% end %>
+    <div>
+      <h2 class="text-2xl font-bold mb-1"><%= song.title %></h2>
+      <p class="text-sm text-blue-200">
+        <% song.artists.each do |artist| %>
+          <%= artist.name %><% unless artist == song.artists.last %>, <% end %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <strong class="block text-sm font-medium text-blue-100">Release:</strong>
+    <p class="text-blue-200"><%= song.release %></p>
+  </div>
+
+  <div class="mb-4">
+    <strong class="block text-sm font-medium text-blue-100">Composer:</strong>
+    <p class="text-blue-200"><%= song.composer %></p>
+  </div>
+
+  <div class="mb-4">
+    <strong class="block text-sm font-medium text-blue-100">Producer:</strong>
+    <p class="text-blue-200"><%= song.producer %></p>
+  </div>
+
+  <div class="mt-4">
+    <% if song.file.attached? %>
+      <audio controls class="w-full bg-blue-600 rounded-md">
+        <source src="<%= url_for(song.file) %>" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    <% else %>
+      <p class="text-blue-300">No file attached</p>
+    <% end %>
+  </div>
+</div>

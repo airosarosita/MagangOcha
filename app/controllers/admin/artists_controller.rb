@@ -1,4 +1,4 @@
-class Client::ArtistsController < ApplicationController
+class Admin::ArtistsController < ApplicationController
   before_action :set_artist, only: %i[ show edit update destroy ]
 
   # GET /artists or /artists.json
@@ -25,7 +25,7 @@ class Client::ArtistsController < ApplicationController
 
     respond_to do |format|
       if @artist.save
-        format.html { redirect_to artist_url(@artist), notice: "Artist was successfully created." }
+        format.html { redirect_to admin_artist_url(@artist), notice: "Artist was successfully created." }
         format.json { render :show, status: :created, location: @artist }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,10 +49,11 @@ class Client::ArtistsController < ApplicationController
 
   # DELETE /artists/1 or /artists/1.json
   def destroy
+    @artist.artist_songs.destroy_all
     @artist.destroy!
 
     respond_to do |format|
-      format.html { redirect_to artists_url, notice: "Artist was successfully destroyed." }
+      format.html { redirect_to admin_artists_url, notice: "Artist was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,11 +62,21 @@ class Client::ArtistsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_artist
       @artist = Artist.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "Artist not found"
+      redirect_to admin_artists_url
     end
 
     # Only allow a list of trusted parameters through.
     def artist_params
       params.require(:artist).permit(:name, :year, :biography, :nationality)
 
+    end
+
+    # Ensure only admins can access admin actions
+    def authorize_admin
+      unless current_user.admin?
+        redirect_to root_path, alert: "You are not authorized to perform this action."
+      end
     end
 end

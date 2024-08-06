@@ -1,5 +1,6 @@
 class Client::AlbumsController < ApplicationController
-  before_action :set_album, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_album, only: [:show, :edit, :update, :destroy]
 
   # GET /albums or /albums.json
   def index
@@ -10,16 +11,16 @@ class Client::AlbumsController < ApplicationController
   def show
   end
 
-  # GET /albums/new
-  def new
+   # GET /client/albums/new
+   def new
     @album = Album.new
-    @album.album_songs.build
   end
 
-  # GET /albums/1/edit
+  # GET /client/albums/1/edit
   def edit
   end
 
+ 
   # POST /albums or /albums.json
   def create
     @album = Album.new(album_params)
