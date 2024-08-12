@@ -1,5 +1,8 @@
-class Client::StaticsController < ApplicationController
+class StaticsController < ApplicationController
     def index
+    end
+
+    def about
     end
   
     def contact

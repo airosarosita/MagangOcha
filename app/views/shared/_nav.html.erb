@@ -1,27 +1,90 @@
-<nav class="w-full flex justify-between items-center py-3 px-3 fixed top-0 bg-blue-600 border-x border-black">
-  <div class="font-bold text-xl underline underline-offset-8">
-    <%= link_to "SPOTIFY", root_path, class: "text-white" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>SPOTIPI</title>
+<style>
+body {
+  padding-top: 4rem; /* Adjust according to the height of the navbar */
+}
+</style>
+</head>
+<body class="bg-blue-40">
+<nav class="fixed top-0 left-0 w-full h-16 bg-blue-700 shadow-md flex items-center justify-between px-6">
+  <div class="font-bold text-2xl text-white">
+    <%= link_to "SPOTIPI", root_path, class: "hover:font-bold" %>
   </div>
-  
-  <div class="flex items-center space-x-3">
-    <%= link_to "About", about_path, class: "text-white" %>
-    <%= link_to "Artist", client_artists_path, class: "text-white" %>
-    <%= link_to "Albums", client_albums_path, class: "text-white" %>
-    <%= link_to "Songs", client_songs_path, class: "text-white" %>
-    <%= link_to "Contact", contact_path, class: "text-white" %>
-    
+  <div class="flex space-x-6">
     <% if user_signed_in? %>
       <% if current_user.admin? %>
-        <%= link_to "Edit Artists", edit_admin_artists_path, class: "text-white" %>
-        <%= link_to "Delete Artists", bulk_destroy_admin_artists_path, method: :delete, class: "text-white" %>
-        <!-- Add other admin-specific links here -->
+        <!-- Navbar untuk admin -->
+        <%= link_to root_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-home mr-2"></i> Home
+        <% end %>
+        <%= link_to artists_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-music mr-2"></i> Artist
+        <% end %>
+        <%= link_to songs_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-play mr-2"></i> Song
+        <% end %>
+        <%= link_to albums_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-compact-disc mr-2"></i> Album
+        <% end %>
+        <%= link_to about_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-info-circle mr-2"></i> About
+        <% end %>
+        <%= link_to contact_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-envelope mr-2"></i> Contact
+        <% end %>
+        <%= link_to edit_user_registration_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-user mr-2"></i> Profile
+        <% end %>
+        <%= link_to destroy_user_session_path, method: :delete, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-sign-out-alt mr-2"></i> Logout
+        <% end %>
+      <% else %>
+        <!-- Navbar untuk client -->
+        <%= link_to client_root_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-home mr-2"></i> Home
+        <% end %>
+        <%= link_to client_artists_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-music mr-2"></i> Artist
+        <% end %>
+        <%= link_to client_songs_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-play mr-2"></i> Song
+        <% end %>
+        <%= link_to albums_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-compact-disc mr-2"></i> Album
+        <% end %>
+        <%= link_to about_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-info-circle mr-2"></i> About
+        <% end %>
+        <%= link_to contact_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-envelope mr-2"></i> Contact
+        <% end %>
+        <%= link_to edit_user_registration_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-user mr-2"></i> Profile
+        <% end %>
+        <%= link_to destroy_user_session_path, method: :delete, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+          <i class="fas fa-sign-out-alt mr-2"></i> Logout
+        <% end %>
       <% end %>
-      
-      <%= link_to "Profile", edit_user_registration_path, class: "text-white" %>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-white" %>
     <% else %>
-      <%= link_to "Sign In", new_user_session_path, class: "text-white" %>
-      <%= link_to "Sign Up", new_user_registration_path, class: "text-white" %>
+      <!-- Navbar untuk umum -->
+      <%= link_to new_user_session_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      <% end %>
+      <%= link_to new_user_registration_path, class: "px-3 py-2 rounded-lg text-white hover:bg-blue-600 transition-colors duration-300 flex items-center" do %>
+        <i class="fas fa-user-plus mr-2"></i> Sign up
+      <% end %>
     <% end %>
   </div>
 </nav>
+<div class="p-4">
+  <!-- Main content goes here -->
+</div>
+</body>
+</html>
